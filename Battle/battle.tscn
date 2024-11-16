@@ -427,3 +427,6 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("3_g28s4")
 theme_override_font_sizes/font_size = 8
 text = "00"
+
+[connection signal="ButtonFocused" from="MarginContainer/VBoxContainer/Bottom/OptionsBox/OptionsScroller/Options" to="." method="_on_options_button_focused"]
+[connection signal="ButtonPressed" from="MarginContainer/VBoxContainer/Bottom/OptionsBox/OptionsScroller/Options" to="." method="_on_options_button_pressed"]
