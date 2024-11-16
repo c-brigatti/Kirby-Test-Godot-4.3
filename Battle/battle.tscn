@@ -1,0 +1,429 @@
+[gd_scene load_steps=9 format=3 uid="uid://bxsctj5fk61fy"]
+
+[ext_resource type="Script" path="res://Battle/Battle.cs" id="1_hwab6"]
+[ext_resource type="Texture2D" uid="uid://dcsmyeof32dvt" path="res://Art/GUI/pixil-frame-0(1).png" id="2_h4p8k"]
+[ext_resource type="PackedScene" uid="uid://cmjqyhdr5ikqk" path="res://Battle/enemy_button.tscn" id="3_06qt4"]
+[ext_resource type="FontFile" uid="uid://bm40ypfgo7eoy" path="res://Art/Fonts/pixelmix.ttf" id="3_g28s4"]
+[ext_resource type="Texture2D" uid="uid://g3l15rwb3vka" path="res://Art/Players/4489.png" id="4_srmfy"]
+[ext_resource type="Script" path="res://Battle/WindowBox.cs" id="6_ow1u4"]
+[ext_resource type="Script" path="res://Battle/Menu.cs" id="7_cw6fu"]
+
+[sub_resource type="Theme" id="Theme_16mbi"]
+
+[node name="Battle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hwab6")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Top" type="NinePatchRect" parent="MarginContainer/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(180, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_h4p8k")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Top"]
+layout_mode = 2
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 176.0
+offset_bottom = 12.0
+
+[node name="EnemyName" type="Label" parent="MarginContainer/VBoxContainer/Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = SubResource("Theme_16mbi")
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "Cocky Roach"
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+theme = SubResource("Theme_16mbi")
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "5"
+
+[node name="MainArea" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Players" type="Control" parent="MarginContainer/VBoxContainer/MainArea"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+
+[node name="Player1" type="TextureRect" parent="MarginContainer/VBoxContainer/MainArea/Players"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+offset_left = -19.0
+offset_top = -44.0
+offset_right = 41.0
+offset_bottom = 6.67567
+texture = ExtResource("4_srmfy")
+expand_mode = 5
+flip_h = true
+
+[node name="Player2" type="TextureRect" parent="MarginContainer/VBoxContainer/MainArea/Players"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+offset_left = 15.0
+offset_top = -44.0
+offset_right = 75.0
+offset_bottom = 6.67567
+texture = ExtResource("4_srmfy")
+expand_mode = 5
+flip_h = true
+
+[node name="Player3" type="TextureRect" parent="MarginContainer/VBoxContainer/MainArea/Players"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+offset_left = -19.0
+offset_top = -1.0
+offset_right = 41.0
+offset_bottom = 49.6757
+texture = ExtResource("4_srmfy")
+expand_mode = 5
+flip_h = true
+
+[node name="Player4" type="TextureRect" parent="MarginContainer/VBoxContainer/MainArea/Players"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+offset_left = 15.0
+offset_top = -1.0
+offset_right = 75.0
+offset_bottom = 49.6757
+texture = ExtResource("4_srmfy")
+expand_mode = 5
+flip_h = true
+
+[node name="Enemies" type="Control" parent="MarginContainer/VBoxContainer/MainArea"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 6
+
+[node name="EnemyButton" parent="MarginContainer/VBoxContainer/MainArea/Enemies" instance=ExtResource("3_06qt4")]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+offset_left = -72.0
+offset_top = -38.0
+offset_right = -36.0
+offset_bottom = -2.0
+size_flags_stretch_ratio = 0.0
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="EnemyButton2" parent="MarginContainer/VBoxContainer/MainArea/Enemies" instance=ExtResource("3_06qt4")]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+offset_left = -32.0
+offset_top = -38.0
+offset_right = 4.0
+offset_bottom = -2.0
+size_flags_stretch_ratio = 0.0
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="EnemyButton3" parent="MarginContainer/VBoxContainer/MainArea/Enemies" instance=ExtResource("3_06qt4")]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+offset_left = -72.0
+offset_top = 2.0
+offset_right = -36.0
+offset_bottom = 38.0
+size_flags_stretch_ratio = 0.0
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="EnemyButton4" parent="MarginContainer/VBoxContainer/MainArea/Enemies" instance=ExtResource("3_06qt4")]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+offset_left = -32.0
+offset_top = 2.0
+offset_right = 4.0
+offset_bottom = 38.0
+size_flags_stretch_ratio = 0.0
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Bottom" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="OptionsBox" type="NinePatchRect" parent="MarginContainer/VBoxContainer/Bottom"]
+texture_filter = 1
+custom_minimum_size = Vector2(44, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("2_h4p8k")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+script = ExtResource("6_ow1u4")
+
+[node name="OptionsScroller" type="ScrollContainer" parent="MarginContainer/VBoxContainer/Bottom/OptionsBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+vertical_scroll_mode = 3
+
+[node name="Options" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Bottom/OptionsBox/OptionsScroller"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+alignment = 1
+script = ExtResource("7_cw6fu")
+
+[node name="Skills" type="Button" parent="MarginContainer/VBoxContainer/Bottom/OptionsBox/OptionsScroller/Options"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "Skills"
+flat = true
+
+[node name="Magic" type="Button" parent="MarginContainer/VBoxContainer/Bottom/OptionsBox/OptionsScroller/Options"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "Magic"
+flat = true
+
+[node name="Item" type="Button" parent="MarginContainer/VBoxContainer/Bottom/OptionsBox/OptionsScroller/Options"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "Item"
+flat = true
+
+[node name="Run" type="Button" parent="MarginContainer/VBoxContainer/Bottom/OptionsBox/OptionsScroller/Options"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "Run"
+flat = true
+
+[node name="ChoicesBox" type="NinePatchRect" parent="MarginContainer/VBoxContainer/Bottom"]
+texture_filter = 1
+custom_minimum_size = Vector2(88, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("2_h4p8k")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+script = ExtResource("6_ow1u4")
+
+[node name="ChoicesScroller" type="ScrollContainer" parent="MarginContainer/VBoxContainer/Bottom/ChoicesBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+vertical_scroll_mode = 3
+
+[node name="Choices" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Bottom/ChoicesBox/ChoicesScroller"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+script = ExtResource("7_cw6fu")
+
+[node name="Choice" type="Button" parent="MarginContainer/VBoxContainer/Bottom/ChoicesBox/ChoicesScroller/Choices"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "Placeholder"
+flat = true
+
+[node name="PlayerInfo" type="NinePatchRect" parent="MarginContainer/VBoxContainer/Bottom"]
+texture_filter = 1
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("2_h4p8k")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Players" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 9
+size_flags_vertical = 4
+
+[node name="Names" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_constants/separation = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players/Names"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "PlayerName"
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players/Names"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "PlayerName"
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players/Names"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "PlayerName"
+
+[node name="Label4" type="Label" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players/Names"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "PlayerName"
+
+[node name="Levels" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players/Levels"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "00"
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players/Levels"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "00"
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players/Levels"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "00"
+
+[node name="Label4" type="Label" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players/Levels"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "00"
+
+[node name="HPs" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players/HPs"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "00"
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players/HPs"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "00"
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players/HPs"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "00"
+
+[node name="Label4" type="Label" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players/HPs"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "00"
+
+[node name="MPs" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players/MPs"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "00"
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players/MPs"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "00"
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players/MPs"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "00"
+
+[node name="Label4" type="Label" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players/MPs"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_g28s4")
+theme_override_font_sizes/font_size = 8
+text = "00"

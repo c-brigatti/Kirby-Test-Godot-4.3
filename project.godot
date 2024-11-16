@@ -11,12 +11,26 @@ config_version=5
 [application]
 
 config/name="CSharp"
+run/main_scene="res://Battle/battle.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=320
+window/size/viewport_height=180
+window/size/initial_position_type=0
+window/size/window_width_override=960
+window/size/window_height_override=540
+window/stretch/mode="viewport"
 
 [dotnet]
 
 project/assembly_name="CSharp"
+
+[gui]
+
+theme/custom_font="res://Art/Fonts/pixelmix.ttf"
 
 [rendering]
 
