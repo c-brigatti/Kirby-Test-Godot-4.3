@@ -1,8 +1,9 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
-public partial class Menu : Container
+public partial class Menu : Control
 {
     [Signal]
     public delegate void ButtonFocusedEventHandler(BaseButton button);
@@ -14,7 +15,7 @@ public partial class Menu : Container
     public delegate void ClosedEventHandler();
 
     [Export] 
-    public Container ButtonsContainer = null;
+    public Control ButtonsContainer { get; set; } = null;
     
     [Export]
     public bool HideOnFocusExit = false;
@@ -24,6 +25,7 @@ public partial class Menu : Container
 
     public override void _Ready()
     {
+        this.TreeExiting += () => OnTreeExiting();
         // Ensure we restrict focus only to buttons
         foreach (var button in GetButtons())
         {
@@ -34,21 +36,65 @@ public partial class Menu : Container
         }
         
         var buttons = GetButtons();
-        var className = GetClass();
-
-        if (className.StartsWith("VBox"))
+        
+        if (ButtonsContainer is VBoxContainer)
         {
             var topButton = buttons.First();
             var bottomButton = buttons.Last();
             topButton.FocusNeighborTop = bottomButton.GetPath();
             bottomButton.FocusNeighborBottom = topButton.GetPath();
         }
-        else if (className.StartsWith("HBox"))
+        else if (ButtonsContainer is HBoxContainer)
         {
             var firstButton = buttons.First();
             var lastButton = buttons.Last();
             firstButton.FocusNeighborLeft = lastButton.GetPath();
             lastButton.FocusNeighborRight = firstButton.GetPath();
+        }
+        else if (ButtonsContainer is GridContainer gridContainer)
+        {
+            int cols = gridContainer.Columns;
+            int rows = Mathf.CeilToInt((float)buttons.Count / cols);
+
+            var topRow = new List<BaseButton>();
+            var bottomRow = new List<BaseButton>();
+
+            for (int x = 0; x < cols; x++)
+            {
+                if (x < buttons.Count)
+                    topRow.Add(buttons[x]);
+            }
+
+            for (int x = rows * cols - cols; x < rows * cols; x++)
+            {
+                if (x < buttons.Count)
+                    bottomRow.Add(buttons[x]);
+            }
+
+            for (int x = 0; x < cols; x++)
+            {
+                if (x < topRow.Count && x < bottomRow.Count)
+                {
+                    var topButton = topRow[x];
+                    var bottomButton = bottomRow[x];
+                    if (topButton != bottomButton)
+                    {
+                        topButton.FocusNeighborTop = bottomButton.GetPath();
+                        bottomButton.FocusNeighborBottom = topButton.GetPath();
+                    }
+                }
+            }
+
+            for (int i = 0; i < buttons.Count; i += cols)
+            {
+                if (i + cols - 1 < buttons.Count)
+                {
+                    var leftButton = buttons[i];
+                    var rightButton = buttons[i + cols - 1];
+                    leftButton.FocusNeighborLeft = rightButton.GetPath();
+                    rightButton.FocusNeighborRight = leftButton.GetPath();
+                }
+            }
         }
         
         ButtonEnableFocus(false);
@@ -57,7 +103,7 @@ public partial class Menu : Container
     // Retrieve all Button children inside this Menu container
     public Godot.Collections.Array<BaseButton> GetButtons()
     {
-        return new Godot.Collections.Array<BaseButton>(GetChildren().OfType<BaseButton>());
+        return new Godot.Collections.Array<BaseButton>(ButtonsContainer.GetChildren().OfType<BaseButton>());
     }
 
     // Focus a button by index
@@ -120,5 +166,11 @@ public partial class Menu : Container
         {
             FocusButton(_index - 1);
         }
+    }
+
+    private void OnTreeExiting()
+    {
+        _exiting = true;
+        GD.Print("Tree exited: " + ButtonsContainer.Name);
     }
 }

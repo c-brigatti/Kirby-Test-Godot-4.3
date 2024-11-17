@@ -13,22 +13,34 @@ public partial class Battle : Control
 	
 	private States _state = States.OPTIONS;
 	
-	private WindowBox _options;
-	private WindowBox _choices;
-	private Menu _optionsMenu;
-	private Menu _choicesMenu;
-	private Menu _enemiesMenu;
+	private Menu _options;
+	private Menu _choices;
+	private Menu _enemyIcons;
+	private Menu _playerDetails;
+	private Menu _playerIcons;
+	
+	private Control _optionsContainer;
+	private Control _choicesContainer;
+	private Control _enemyIconsContainer;
+	private Control _playerDetailsContainer;
+	private Control _playerIconsContainer;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_options = GetNode<WindowBox>("MarginContainer/VBoxContainer/Bottom/OptionsBox");
-		_choices = GetNode<WindowBox>("MarginContainer/VBoxContainer/Bottom/ChoicesBox");
-		_optionsMenu = GetNode<Menu>("MarginContainer/VBoxContainer/Bottom/OptionsBox/OptionsScroller/Options");
-		_choicesMenu = GetNode<Menu>("MarginContainer/VBoxContainer/Bottom/ChoicesBox/ChoicesScroller/Choices");
-		_enemiesMenu = GetNode<Menu>("MarginContainer/VBoxContainer/MainArea/Enemies/Enemies");
+		_options = GetNode<Menu>("MarginContainer/VBoxContainer/Bottom/OptionsBox");
+		_choices = GetNode<Menu>("MarginContainer/VBoxContainer/Bottom/ChoicesBox");
+		_enemyIcons = GetNode<Menu>("MarginContainer/VBoxContainer/MainArea/EnemyIcons");
+		_playerDetails = GetNode<Menu>("MarginContainer/VBoxContainer/Bottom/PlayerInfo");
+		_playerIcons = GetNode<Menu>("MarginContainer/VBoxContainer/MainArea/PlayerIcons");
+		
+		_optionsContainer = _options.ButtonsContainer;
+		_choicesContainer = _choices.ButtonsContainer;
+		_enemyIconsContainer = _enemyIcons.ButtonsContainer;
+		_playerDetailsContainer = _playerDetails.ButtonsContainer;
+		_playerIconsContainer = _playerIcons.ButtonsContainer;
 
-		_optionsMenu.FocusButton(0);
+		_options.FocusButton(0);
 	}
 
 	private void _unhandled_input(InputEvent _event)
@@ -41,15 +53,15 @@ public partial class Battle : Control
 					break;
 				case States.CHOICES:
 					_state = States.OPTIONS;
-					_optionsMenu.FocusButton();
+					_options.FocusButton();
 					break;
 				case States.PLAYERS:
 					_state = States.CHOICES;
-					_choicesMenu.FocusButton();
+					_choices.FocusButton();
 					break;
 				case States.ENEMIES:
 					_state = States.CHOICES;
-					_choicesMenu.FocusButton();
+					_choices.FocusButton();
 					break;
 			}
 		}
@@ -58,24 +70,26 @@ public partial class Battle : Control
 
 	private void _on_options_button_focused(BaseButton button)
 	{
-		if (button is Button castButton)
-			GD.Print(castButton.Text + " focused");
+		GD.Print(button.Name + " focused");
 	}
 
 	private void _on_options_button_pressed(BaseButton button)
 	{
-		if (button is Button castButton)
+		GD.Print(button.Name + " pressed");
+		switch (button.Name)
 		{
-			GD.Print(castButton.Text + " pressed");
-			switch (castButton.Text)
-			{
-				case "Skills":
-				case "Magic":
-				case "Item":
-					_state = States.CHOICES;
-					_choicesMenu.FocusButton();
-					break;
-			}
+			case "Skills":
+				_state = States.CHOICES;
+				_choices.FocusButton();
+				break;
+			case "Magic":
+				_state = States.PLAYERS;
+				_playerDetails.FocusButton();
+				break;
+			case "Item":
+				_state = States.CHOICES;
+				_choices.FocusButton();
+				break;
 		}
 	}
 
@@ -85,7 +99,7 @@ public partial class Battle : Control
 		{
 			GD.Print(castButton.Text + " pressed");
 			_state = States.ENEMIES;
-			_enemiesMenu.FocusButton();
+			_enemyIcons.FocusButton();
 		}
 	}
 
