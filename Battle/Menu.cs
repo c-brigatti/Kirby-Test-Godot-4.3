@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Godot.Collections;
 
 public partial class Menu : Control
 {
@@ -101,9 +102,9 @@ public partial class Menu : Control
     }
 
     // Retrieve all Button children inside this Menu container
-    public Godot.Collections.Array<BaseButton> GetButtons()
+    public Array<BaseButton> GetButtons()
     {
-        return new Godot.Collections.Array<BaseButton>(ButtonsContainer.GetChildren().OfType<BaseButton>());
+        return new Array<BaseButton>(ButtonsContainer.GetChildren().OfType<BaseButton>());
     }
 
     // Focus a button by index

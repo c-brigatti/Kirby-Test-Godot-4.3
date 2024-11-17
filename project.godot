@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="CSharp"
-run/main_scene="res://Battle/battle.tscn"
+run/main_scene="res://Battle/Battle.tscn"
 config/features=PackedStringArray("4.3", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Data="*res://Data.cs"
 
 [display]
 
