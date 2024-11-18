@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Magic" load_steps=2 format=3 uid="uid://c0kbo3ygu7wt3"]
+
+[ext_resource type="Script" path="res://Magic.cs" id="1_igtew"]
+
+[resource]
+script = ExtResource("1_igtew")
+Name = "Lightning Bolt"
+Damage = 35
+MpCost = 15

@@ -1,14 +1,20 @@
 using Godot;
 using System;
+using CSharp.Battle;
 
-public partial class Skill : Resource
+[GlobalClass] public partial class Skill : Ability
 {
-    public string Name;
-    public int Damage;
-
-    public Skill(string name, int damage)
-    {
-        Name = name;
-        Damage = damage;
-    }
+	public Skill() { }
+	
+	public Skill(string name = "default", int damage = 10, int mpCost = 10)
+	{
+		Name = name;
+		Damage = damage;
+		MpCost = mpCost;
+	}
+	
+	public override string ToString()
+	{
+		return $"Name: {Name}, Damage: {Damage}, MpCost: {MpCost}";
+	}
 }

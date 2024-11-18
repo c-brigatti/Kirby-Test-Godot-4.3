@@ -3,9 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using CSharp.Battle;
 
 public partial class Battle : Control
 {
+	[Signal]
+	public delegate void ActionFocusedEventHandler(BattleActor activeActor, int actionEnum);
+	[Signal]
+	public delegate void ActionPressedEventHandler(BattleActor activeActor, int actionEnum);
+	
 	public enum States
 	{
 		ACTIONS,
@@ -16,15 +22,14 @@ public partial class Battle : Control
 
 	public enum Actions
 	{
-		IDLE,
 		SKILLS,
 		MAGIC,
 		ITEMS,
 		RUN,
 	}
-	
-	private States _state = States.ACTIONS;
-	private Actions _action = Actions.IDLE;
+
+	private States _state;
+	private Actions _action;
 	
 	private Menu _actions;
 	private Menu _choices;
@@ -40,8 +45,9 @@ public partial class Battle : Control
 	private Control _playerDetailsContainer;
 	private Control _playerIconsContainer;
 
-	private Queue<BattleActor> _battleQueue = new Queue<BattleActor>();
+	private Queue<BattleActor> _battleQueue;
 	private BattleActor _activeActor;
+	private Ability _activeAbility;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -57,12 +63,13 @@ public partial class Battle : Control
 		_enemyIconsContainer = _enemyIcons.ButtonsContainer;
 		_playerDetailsContainer = _playerDetails.ButtonsContainer;
 		_playerIconsContainer = _playerIcons.ButtonsContainer;
+		
+		_battleQueue = new Queue<BattleActor>();
 
 		foreach (var battleActor in GetNode<Data>("/root/Data").PartyMembers)
 		{
 			_battleQueue.Enqueue(battleActor);
 		}
-
 		foreach (var button in _enemyIcons.GetButtons())
 		{
 			var enemyButton = (EnemyButton)button;
@@ -70,6 +77,10 @@ public partial class Battle : Control
 		}
 
 		_activeActor = _battleQueue.Dequeue();
+		_battleQueue.Enqueue(_activeActor);
+		
+		_state = States.ACTIONS;
+		_action = Actions.SKILLS;
 
 		_actions.FocusButton(0);
 	}
@@ -83,85 +94,115 @@ public partial class Battle : Control
 				case States.ACTIONS:
 					break;
 				case States.CHOICES:
-					_state = States.ACTIONS;
+					_state = States.CHOICES;
 					_actions.FocusButton();
 					break;
 				case States.PLAYERS:
-					_state = States.CHOICES;
-					_choices.FocusButton();
-					break;
 				case States.ENEMIES:
 					_state = States.CHOICES;
 					_choices.FocusButton();
 					break;
 			}
 		}
-			
 	}
 
 	private void _on_actions_button_focused(BaseButton button)
 	{
 		GD.Print(button.Name + " focused");
-	}
-
-	private void _on_actions_button_pressed(BaseButton button)
-	{
-		GD.Print(button.Name + " pressed");
 		switch (button.Name)
 		{
 			case "Skills":
-				_state = States.CHOICES;
 				_action = Actions.SKILLS;
-				_choices.FocusButton();
 				break;
 			case "Magic":
-				_state = States.PLAYERS;
 				_action = Actions.MAGIC;
-				_playerDetails.FocusButton();
 				break;
 			case "Item":
-				_state = States.CHOICES;
 				_action = Actions.ITEMS;
-				_choices.FocusButton();
+				break;
+			case "Run":
+				_action = Actions.RUN;
 				break;
 		}
+		
+		// Emits signal giving info on active player focusing on an action
+		EmitSignal("ActionFocused", _activeActor, (int)_action);
 	}
 
-	private void _on_choices_button_pressed(BaseButton button)
+	// receiver for ButtonPressed in ActionsBox
+	private void _on_actions_button_pressed(BaseButton button) 
 	{
-		if (button is Button castButton)
-		{
-			GD.Print(castButton.Text + " pressed");
-			_state = States.ENEMIES;
-			_enemyIcons.FocusButton();
-		}
+		GD.Print(button.Name + " pressed");
+		_state = States.CHOICES;
+		
+		// Emits signal giving info on active player selecting an action
+		EmitSignal("ActionPressed", _activeActor, (int)_action);
+		_choices.FocusButton();
 	}
 
-	private void _on_enemies_button_pressed(EnemyButton button)
+	// receiver for ButtonPressed in ChoicesBox
+	private void _on_choices_button_pressed(BaseButton button) 
 	{
-		BattleActor enemy = button.EnemyData;
+		ChoiceButton choiceButton = (ChoiceButton)button; // forced cast is allowed here
+		GD.Print(choiceButton.Text + " pressed");
+		_state = States.ENEMIES;
 
-		RunPlayerEvent(_activeActor, enemy, _action);
+		_activeAbility = choiceButton.Ability;
+		
+		_enemyIcons.FocusButton();
 	}
 
-	private void _on_players_button_pressed(PlayerButton button)
+	// receiver for ButtonPressed in EnemyIcons
+	private void _on_enemies_button_pressed(BaseButton button)
+	{
+		EnemyButton enemyButton = (EnemyButton)button; // forced cast is allowed here
+		BattleActor enemy = enemyButton.EnemyData;
+
+		RunPlayerEvent(_activeActor, enemy, _action, _activeAbility);
+	}
+
+	// receiver for ButtonPressed in PlayerIcons
+	private void _on_players_button_pressed(BaseButton button) 
 	{
 		
 	}
 
-	public void RunPlayerEvent(BattleActor player, BattleActor target, Actions action)
+	// TODO
+	public async void RunPlayerEvent(BattleActor player, BattleActor target, Actions action, Ability ability)
 	{
+		_enemyIcons.UnfocusButtons();
+		// TODO: change wait timeout to simulate animation instead
+		await ToSignal(GetTree().CreateTimer(0.25f), "timeout");
+		
 		switch (action)
 		{
 			case Actions.SKILLS:
-				break;
 			case Actions.MAGIC:
+				target.ChangeHp(-ability.Damage);
+				player.ChangeMp(-ability.MpCost);
 				break;
 			case Actions.ITEMS:
 				break;
 			case Actions.RUN:
 				break;
-			
+		}
+		await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
+
+		StartNextEvent();
+	}
+
+	public void StartNextEvent()
+	{
+		_activeActor = _battleQueue.Dequeue();
+		_battleQueue.Enqueue(_activeActor);
+
+		if (_activeActor is PlayerActor)
+		{
+			_actions.FocusButton();
+		}
+		else if (_activeActor is EnemyActor)
+		{
+			// TODO
 		}
 	}
 }

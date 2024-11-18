@@ -1,8 +1,9 @@
 using Godot;
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using CSharp;
 using Godot.Collections;
+
 
 public partial class Menu : Control
 {
@@ -21,22 +22,122 @@ public partial class Menu : Control
     [Export]
     public bool HideOnFocusExit = false;
 
+    
+
     private int _index = 0;
     private bool _exiting = false;
 
     public override void _Ready()
     {
-        this.TreeExiting += () => OnTreeExiting();
+        TreeExiting += () => OnTreeExiting();
+        
         // Ensure we restrict focus only to buttons
+        SetButtonsEmit(GetButtons());
+        SetButtonsFocus(GetButtons());
+    }
+
+    // Retrieve all Button children inside this Menu container
+    public Array<BaseButton> GetButtons()
+    {
+        var buttons = ButtonsContainer.GetChildren().OfType<BaseButton>();
+        return new Array<BaseButton>(buttons);
+    }
+
+    public async void UnfocusButtons()
+    {
+        await ToSignal(GetTree(), "process_frame");
+        
+        var buttons = GetButtons();
+        if (buttons.Count > 0)
+        {
+            ButtonEnableFocus(false);
+        }
+    }
+
+    // Focus a button by index
+    public async void FocusButton(int focusIndex = -1)
+    {
+        if (focusIndex == -1)
+            focusIndex = _index;
+
+        await ToSignal(GetTree(), "process_frame");
+        
+        var buttons = GetButtons();
+        if (buttons.Count > 0)
+        {
+            ButtonEnableFocus(true);
+            focusIndex = Math.Clamp(focusIndex, 0, buttons.Count - 1);
+            buttons[focusIndex].GrabFocus();
+        }
+    }
+
+    protected void ButtonEnableFocus(bool on)
+    {
+        var mode = on ? FocusModeEnum.All : FocusModeEnum.None;
         foreach (var button in GetButtons())
+        {
+            button.FocusMode = mode;
+        }
+
+        if (HideOnFocusExit)
+            Visible = on;
+    }
+
+    protected async void OnButtonFocusExited(BaseButton button)
+    {
+        await ToSignal(GetTree(), "process_frame");
+        if (_exiting)
+            return;
+        
+        if (!GetButtons().Contains(GetViewport().GuiGetFocusOwner()))
+        {
+            ButtonEnableFocus(false);
+        }
+    }
+
+    // Emit signal when a button gains focus
+    protected void OnButtonFocused(BaseButton button)
+    {
+        _index = button.GetIndex();
+        EmitSignal("ButtonFocused", button);
+    }
+
+    // Emit signal when a button is pressed
+    protected void OnButtonPressed(BaseButton button)
+    {
+        EmitSignal("ButtonPressed", button);
+    }
+
+    /*protected void OnButtonTreeExiting(BaseButton button)
+    {
+        if (!GetButtons().Contains(GetViewport().GuiGetFocusOwner()))
+        {
+            FocusButton(_index - 1);
+        }
+    }*/
+
+    protected void OnTreeExiting()
+    {
+        _exiting = true;
+        GD.Print("Tree exited: " + ButtonsContainer.Name);
+    }
+
+    protected void SetButtonsEmit(Array<BaseButton> buttons)
+    {
+        if (buttons.Count <= 0) return;
+
+        foreach (var button in buttons)
         {
             button.FocusExited += () => OnButtonFocusExited(button);
             button.FocusEntered += () => OnButtonFocused(button);
             button.Pressed += () => OnButtonPressed(button);
-            button.TreeExiting += () => OnButtonTreeExiting(button);
+            //button.TreeExiting += () => OnButtonTreeExiting(button);
         }
-        
-        var buttons = GetButtons();
+    }
+    
+    protected void SetButtonsFocus(Array<BaseButton> buttons)
+    {
+        if(buttons.Count <= 0) return;
         
         if (ButtonsContainer is VBoxContainer)
         {
@@ -57,8 +158,8 @@ public partial class Menu : Control
             int cols = gridContainer.Columns;
             int rows = Mathf.CeilToInt((float)buttons.Count / cols);
 
-            var topRow = new List<BaseButton>();
-            var bottomRow = new List<BaseButton>();
+            var topRow = new Array<BaseButton>();
+            var bottomRow = new Array<BaseButton>();
 
             for (int x = 0; x < cols; x++)
             {
@@ -97,81 +198,14 @@ public partial class Menu : Control
                 }
             }
         }
-        
+            
         ButtonEnableFocus(false);
     }
 
-    // Retrieve all Button children inside this Menu container
-    public Array<BaseButton> GetButtons()
-    {
-        return new Array<BaseButton>(ButtonsContainer.GetChildren().OfType<BaseButton>());
-    }
+    
 
-    // Focus a button by index
-    public async void FocusButton(int focusIndex = -1)
+    protected void _on_action_pressed(BattleActor activeActor, int actionEnum)
     {
-        if (focusIndex == -1)
-            focusIndex = _index;
-
-        await ToSignal(GetTree(), "process_frame");
         
-        var buttons = GetButtons();
-        if (buttons.Count > 0)
-        {
-            ButtonEnableFocus(true);
-            focusIndex = Math.Clamp(focusIndex, 0, buttons.Count - 1);
-            buttons[focusIndex].GrabFocus();
-        }
-    }
-
-    private void ButtonEnableFocus(bool on)
-    {
-        var mode = on ? FocusModeEnum.All : FocusModeEnum.None;
-        foreach (var button in GetButtons())
-        {
-            button.FocusMode = mode;
-        }
-
-        if (HideOnFocusExit)
-            Visible = on;
-    }
-
-    private async void OnButtonFocusExited(BaseButton button)
-    {
-        await ToSignal(GetTree(), "process_frame");
-        if (_exiting)
-            return;
-        
-        if (!GetButtons().Contains(GetViewport().GuiGetFocusOwner()))
-        {
-            ButtonEnableFocus(false);
-        }
-    }
-
-    // Emit signal when a button gains focus
-    private void OnButtonFocused(BaseButton button)
-    {
-        _index = button.GetIndex();
-        EmitSignal("ButtonFocused", button);
-    }
-
-    // Emit signal when a button is pressed
-    private void OnButtonPressed(BaseButton button)
-    {
-        EmitSignal("ButtonPressed", button);
-    }
-
-    private void OnButtonTreeExiting(BaseButton button)
-    {
-        if (!GetButtons().Contains(GetViewport().GuiGetFocusOwner()))
-        {
-            FocusButton(_index - 1);
-        }
-    }
-
-    private void OnTreeExiting()
-    {
-        _exiting = true;
-        GD.Print("Tree exited: " + ButtonsContainer.Name);
     }
 }

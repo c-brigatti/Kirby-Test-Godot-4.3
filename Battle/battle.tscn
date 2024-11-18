@@ -1,13 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://bxsctj5fk61fy"]
+[gd_scene load_steps=14 format=3 uid="uid://bxsctj5fk61fy"]
 
 [ext_resource type="Script" path="res://Battle/Battle.cs" id="1_0e82i"]
 [ext_resource type="Texture2D" uid="uid://dcsmyeof32dvt" path="res://Art/GUI/pixil-frame-0(1).png" id="2_oypdw"]
 [ext_resource type="FontFile" uid="uid://bm40ypfgo7eoy" path="res://Art/Fonts/pixelmix.ttf" id="3_a886r"]
 [ext_resource type="Script" path="res://Battle/Menu.cs" id="4_tswlv"]
-[ext_resource type="PackedScene" uid="uid://c5ib4aw80nweq" path="res://PlayerButton.tscn" id="5_dpf3b"]
-[ext_resource type="PackedScene" uid="uid://c8acdulpe58h0" path="res://EnemyButton.tscn" id="7_5si2c"]
+[ext_resource type="PackedScene" uid="uid://c5ib4aw80nweq" path="res://Scenes/PlayerButton.tscn" id="5_dpf3b"]
+[ext_resource type="PackedScene" uid="uid://c8acdulpe58h0" path="res://Scenes/EnemyButton.tscn" id="7_5si2c"]
 [ext_resource type="Script" path="res://Battle/PlayerInfoButton.cs" id="8_76ur7"]
-[ext_resource type="PackedScene" uid="uid://dp3x3p7v3gne7" path="res://PlayerInfoBar.tscn" id="8_b65rj"]
+[ext_resource type="PackedScene" uid="uid://dp3x3p7v3gne7" path="res://Scenes/PlayerInfoBar.tscn" id="8_b65rj"]
+[ext_resource type="Script" path="res://Battle/ChoicesMenu.cs" id="8_m5lvs"]
 [ext_resource type="Theme" uid="uid://d1581a561nbqt" path="res://new_theme.tres" id="9_nuj87"]
 
 [sub_resource type="Theme" id="Theme_l3jfe"]
@@ -251,7 +252,7 @@ patch_margin_left = 4
 patch_margin_top = 4
 patch_margin_right = 4
 patch_margin_bottom = 4
-script = ExtResource("4_tswlv")
+script = ExtResource("8_m5lvs")
 ButtonsContainer = NodePath("MarginContainer/ChoicesScroller/Choices")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Bottom/ChoicesBox"]
@@ -273,50 +274,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 6
-
-[node name="Choice" type="Button" parent="MarginContainer/VBoxContainer/Bottom/ChoicesBox/MarginContainer/ChoicesScroller/Choices"]
-layout_mode = 2
-size_flags_horizontal = 0
-focus_mode = 0
-mouse_filter = 2
-theme = ExtResource("9_nuj87")
-theme_override_fonts/font = ExtResource("3_a886r")
-theme_override_font_sizes/font_size = 24
-text = "Placeholder"
-flat = true
-
-[node name="Choice2" type="Button" parent="MarginContainer/VBoxContainer/Bottom/ChoicesBox/MarginContainer/ChoicesScroller/Choices"]
-layout_mode = 2
-size_flags_horizontal = 0
-focus_mode = 0
-mouse_filter = 2
-theme = ExtResource("9_nuj87")
-theme_override_fonts/font = ExtResource("3_a886r")
-theme_override_font_sizes/font_size = 24
-text = "Placeholder"
-flat = true
-
-[node name="Choice3" type="Button" parent="MarginContainer/VBoxContainer/Bottom/ChoicesBox/MarginContainer/ChoicesScroller/Choices"]
-layout_mode = 2
-size_flags_horizontal = 0
-focus_mode = 0
-mouse_filter = 2
-theme = ExtResource("9_nuj87")
-theme_override_fonts/font = ExtResource("3_a886r")
-theme_override_font_sizes/font_size = 24
-text = "Placeholder"
-flat = true
-
-[node name="Choice4" type="Button" parent="MarginContainer/VBoxContainer/Bottom/ChoicesBox/MarginContainer/ChoicesScroller/Choices"]
-layout_mode = 2
-size_flags_horizontal = 0
-focus_mode = 0
-mouse_filter = 2
-theme = ExtResource("9_nuj87")
-theme_override_fonts/font = ExtResource("3_a886r")
-theme_override_font_sizes/font_size = 24
-text = "Placeholder"
-flat = true
 
 [node name="PlayerInfo" type="NinePatchRect" parent="MarginContainer/VBoxContainer/Bottom" node_paths=PackedStringArray("ButtonsContainer")]
 texture_filter = 1
@@ -397,13 +354,13 @@ script = ExtResource("8_76ur7")
 [node name="PlayerInfoBar" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players/PlayerInfoButton4" instance=ExtResource("8_b65rj")]
 layout_mode = 0
 
+[connection signal="ActionFocused" from="." to="MarginContainer/VBoxContainer/Bottom/ChoicesBox" method="_on_action_focused"]
+[connection signal="ActionPressed" from="." to="MarginContainer/VBoxContainer/Bottom/ChoicesBox" method="_on_action_pressed"]
 [connection signal="ButtonFocused" from="MarginContainer/VBoxContainer/MainArea/PlayerIcons" to="." method="_on_actions_button_focused"]
 [connection signal="ButtonPressed" from="MarginContainer/VBoxContainer/MainArea/PlayerIcons" to="." method="_on_actions_button_pressed"]
-[connection signal="ButtonFocused" from="MarginContainer/VBoxContainer/MainArea/EnemyIcons" to="." method="_on_actions_button_focused"]
-[connection signal="ButtonPressed" from="MarginContainer/VBoxContainer/MainArea/EnemyIcons" to="." method="_on_actions_button_pressed"]
+[connection signal="ButtonPressed" from="MarginContainer/VBoxContainer/MainArea/EnemyIcons" to="." method="_on_enemies_button_pressed"]
 [connection signal="ButtonFocused" from="MarginContainer/VBoxContainer/Bottom/ActionsBox" to="." method="_on_actions_button_focused"]
 [connection signal="ButtonPressed" from="MarginContainer/VBoxContainer/Bottom/ActionsBox" to="." method="_on_actions_button_pressed"]
-[connection signal="ButtonFocused" from="MarginContainer/VBoxContainer/Bottom/ChoicesBox" to="." method="_on_actions_button_focused"]
 [connection signal="ButtonPressed" from="MarginContainer/VBoxContainer/Bottom/ChoicesBox" to="." method="_on_choices_button_pressed"]
 [connection signal="ButtonFocused" from="MarginContainer/VBoxContainer/Bottom/PlayerInfo" to="." method="_on_actions_button_focused"]
 [connection signal="ButtonPressed" from="MarginContainer/VBoxContainer/Bottom/PlayerInfo" to="." method="_on_actions_button_pressed"]

@@ -1,65 +1,92 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using CSharp.Battle;
 using Godot.Collections;
 using Array = Godot.Collections.Array;
 
 public partial class Data : Node
 {
-	public Dictionary<string, BattleActor> Players;
-	public Dictionary<string, BattleActor> Enemies;
-	public Dictionary<String, Skill> Skills;
-	public Dictionary<String, Magic> Magic;
-	public Array<BattleActor> PartyMembers;
+	public Godot.Collections.Dictionary<string, PlayerActor> Players;
+	public Godot.Collections.Dictionary<string, EnemyActor> Enemies;
+	public Godot.Collections.Dictionary<String, Skill> Skills;
+	public Godot.Collections.Dictionary<String, Magic> Magic;
+	public Array<PlayerActor> PartyMembers;
 
 	public override void _Ready()
 	{
-		Players = new Dictionary<string, BattleActor>
+		String filePath;
+		DirAccess directory;
+		
+		Skills = new Godot.Collections.Dictionary<string, Skill>();
+		filePath = "res://Skills/";
+		directory = DirAccess.Open(filePath);
+		foreach (var file in directory.GetFiles())
 		{
-			{"Bread", new BattleActor(this)},
-			{"Pillow", new BattleActor(this)},
-			{"Wolf", new BattleActor(this)},
-			{"Milk", new BattleActor(this)},
+			Skill skill = ResourceLoader.Load<Skill>(filePath + file); ;
+			Skills.Add(skill.Name, skill);
+		}
+		
+		Magic = new Godot.Collections.Dictionary<string, Magic>();
+		filePath = "res://Magic/";
+		directory = DirAccess.Open(filePath);
+		foreach (var file in directory.GetFiles())
+		{
+			Magic magic = ResourceLoader.Load<Magic>(filePath + file);
+			Magic.Add(magic.Name, magic);
+		}
+		
+		// TODO: Make Actors resources too, and load them in like Skills/Magic
+		Players = new Godot.Collections.Dictionary<string, PlayerActor>
+		{
+			{"Bread", new PlayerActor()},
+			{"Pillow", new PlayerActor()},
+			{"Wolf", new PlayerActor()},
+			{"Milk", new PlayerActor()},
 		};
 		
-		Enemies = new Dictionary<string, BattleActor>
+		Enemies = new Godot.Collections.Dictionary<string, EnemyActor>
 		{
-			{ "Cocky Roach", new BattleActor(this) },
-			{ "Goofball", new BattleActor(this) },
+			{ "Cocky Roach", new EnemyActor() },
+			{ "Goofball", new EnemyActor() },
 		};
 
-		Skills = new Dictionary<string, Skill>
-		{
-			{ "Punch", new Skill("Punch", 10) },
-			{ "Band-aid", new Skill("Band-aid", -10) },
-			{ "Kick", new Skill("Kick", 15) },
-			{ "Tackle", new Skill("Tackle", 40) },
-		};
-
-		Magic = new Dictionary<string, Magic>
-		{
-			{ "Fireball", new Magic("Fireball", 25, 10) }, // Moderate damage, moderate MP cost
-			{ "Ice Shard", new Magic("Ice Shard", 20, 8) }, // Moderate damage, lower MP cost
-			{ "Lightning Bolt", new Magic("Lightning Bolt", 35, 15) }, // High damage, high MP cost
-			{ "Heal", new Magic("Heal", -30, 12) }, // Restores health, moderate MP cost
-		};
-
-		PartyMembers = new Array<BattleActor>(Players.Values);
+		PartyMembers = new Array<PlayerActor>(Players.Values);
 		
 		SetActorNamesToKeys(Players);
 		SetActorNamesToKeys(Enemies);
-		GD.Print(Players["Bread"].Name);
+
+		foreach (var player in Players.Values)
+		{
+			SetRandomAbilities(player, 3);
+		}
+
+		foreach (var enemy in Enemies.Values)
+		{
+			SetRandomAbilities(enemy, 3);
+		}
 	}
 	
-	public static void SetActorNamesToKeys(Dictionary<string, BattleActor> actors)
+	public void SetActorNamesToKeys<[MustBeVariant] T>(Godot.Collections.Dictionary<string, T> actors) where T : BattleActor
 	{
 		var keys = actors.Keys.ToArray();
-		if (actors[keys[0]] is BattleActor)
+		
+		foreach (var key in keys)
 		{
-			foreach (var key in keys)
-			{
-				actors[key].SetName(key);
-			}
+			actors[key].SetName(key);
+		}
+	}
+
+	public void SetRandomAbilities<[MustBeVariant] T>(T actor, int number) where T : BattleActor
+	{
+		List<string> skillList = new List<string>(Skills.Keys);
+		List<string> magicList = new List<string>(Magic.Keys);
+		for (int i = 0; i < number; i++)
+		{
+			actor.Skills.Add(Skills[skillList[GD.RandRange(0,3)]]);
+			actor.Magic.Add(Magic[magicList[GD.RandRange(0,3)]]);
 		}
 	}
 }

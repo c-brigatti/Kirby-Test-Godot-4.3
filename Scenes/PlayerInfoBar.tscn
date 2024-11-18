@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dp3x3p7v3gne7"]
 
-[ext_resource type="Script" path="res://PlayerInfoBar.cs" id="1_4mehk"]
+[ext_resource type="Script" path="res://Battle/PlayerInfoBar.cs" id="1_4mehk"]
 [ext_resource type="FontFile" uid="uid://bm40ypfgo7eoy" path="res://Art/Fonts/pixelmix.ttf" id="1_mfrup"]
 [ext_resource type="Texture2D" uid="uid://dhs07r5yq2cle" path="res://Art/Battle/HealthBar.png" id="2_ervev"]
 
@@ -22,21 +22,21 @@ region = Rect2(0, 16, 80, 16)
 [node name="PlayerInfoBar" type="HBoxContainer"]
 offset_right = 456.0
 offset_bottom = 28.0
-size_flags_vertical = 3
 theme_override_constants/separation = 12
 script = ExtResource("1_4mehk")
 
 [node name="Name" type="Label" parent="."]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 5
 theme_override_fonts/font = ExtResource("1_mfrup")
 theme_override_font_sizes/font_size = 24
-text = "Playereeee"
+text = "default"
 
 [node name="HpBar" type="TextureProgressBar" parent="."]
 clip_contents = true
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
 value = 60.0
 texture_under = SubResource("AtlasTexture_lsrb3")
@@ -46,28 +46,34 @@ tint_under = Color(1, 1, 1, 0.690196)
 tint_progress = Color(1.97336e-06, 0.785635, 0.203891, 1)
 
 [node name="HP" type="Label" parent="."]
+custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0.027451, 0.945098, 0, 1)
 theme_override_fonts/font = ExtResource("1_mfrup")
 theme_override_font_sizes/font_size = 24
-text = "00"
+text = "000"
 horizontal_alignment = 1
 
 [node name="MP" type="Label" parent="."]
+custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
+size_flags_horizontal = 6
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(1.34766e-06, 0.843274, 0.995359, 1)
 theme_override_fonts/font = ExtResource("1_mfrup")
 theme_override_font_sizes/font_size = 24
-text = "00"
+text = "000"
 horizontal_alignment = 1
 
 [node name="Level" type="Label" parent="."]
+custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0.85098, 0.737255, 0, 1)
 theme_override_fonts/font = ExtResource("1_mfrup")
 theme_override_font_sizes/font_size = 24
-text = "00"
+text = "000"
 horizontal_alignment = 1

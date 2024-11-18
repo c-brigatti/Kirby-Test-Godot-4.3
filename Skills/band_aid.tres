@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=2 format=3 uid="uid://c6vhp5sbjh1os"]
+
+[ext_resource type="Script" path="res://Skill.cs" id="1_fsnoq"]
+
+[resource]
+script = ExtResource("1_fsnoq")
+Name = "Band-aid"
+Damage = -10
+MpCost = 0

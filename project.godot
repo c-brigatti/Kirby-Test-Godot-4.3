@@ -33,6 +33,10 @@ window/stretch/scale_mode="integer"
 
 project/assembly_name="CSharp"
 
+[editor_plugins]
+
+enabled=PackedStringArray()
+
 [gui]
 
 theme/custom_font="res://Art/Fonts/pixelmix.ttf"
