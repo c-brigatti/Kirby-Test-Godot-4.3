@@ -66,7 +66,7 @@ public partial class Battle : Control
 		
 		_battleQueue = new Queue<BattleActor>();
 
-		foreach (var battleActor in GetNode<Data>("/root/Data").PartyMembers)
+		foreach (var battleActor in Data.Instance.PartyMembers)
 		{
 			_battleQueue.Enqueue(battleActor);
 		}

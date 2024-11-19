@@ -7,7 +7,7 @@ public partial class PlayerButton : Button
 
 	public override void _Ready()
 	{
-		PlayerData = GetNode<Data>("/root/Data").PartyMembers[GetIndex()];
+		PlayerData = Data.Instance.PartyMembers[GetIndex()];
 		GD.Print("PlayerData: " + PlayerData.Name);
 	}
 }

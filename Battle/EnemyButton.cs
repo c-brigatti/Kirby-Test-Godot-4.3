@@ -10,7 +10,7 @@ public partial class EnemyButton : Button
     public override void _Ready()
     {
         HpBar = GetNode<TextureProgressBar>("HpBar");
-        EnemyData = (BattleActor)GetNode<Data>("/root/Data").Enemies["Goofball"].Duplicate();
+        EnemyData = (BattleActor)Data.Instance.Enemies["Goofball"].Duplicate();
 
         HpBar.MaxValue = EnemyData.MaxHp;
         HpBar.Value = EnemyData.CurrentHp;

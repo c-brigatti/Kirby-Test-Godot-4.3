@@ -9,6 +9,8 @@ using Array = Godot.Collections.Array;
 
 public partial class Data : Node
 {
+	public static Data Instance { get; private set; } // allows reference to Data without node path
+	
 	public Godot.Collections.Dictionary<string, PlayerActor> Players;
 	public Godot.Collections.Dictionary<string, EnemyActor> Enemies;
 	public Godot.Collections.Dictionary<String, Skill> Skills;
@@ -17,6 +19,8 @@ public partial class Data : Node
 
 	public override void _Ready()
 	{
+		Instance = this;
+		
 		String filePath;
 		DirAccess directory;
 		
