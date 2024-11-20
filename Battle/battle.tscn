@@ -1,23 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://bxsctj5fk61fy"]
+[gd_scene load_steps=10 format=3 uid="uid://bxsctj5fk61fy"]
 
-[ext_resource type="Script" path="res://Battle/Battle.cs" id="1_0e82i"]
-[ext_resource type="Texture2D" uid="uid://dcsmyeof32dvt" path="res://Art/GUI/pixil-frame-0(1).png" id="2_oypdw"]
-[ext_resource type="FontFile" uid="uid://bm40ypfgo7eoy" path="res://Art/Fonts/pixelmix.ttf" id="3_a886r"]
-[ext_resource type="Script" path="res://Battle/Menu.cs" id="4_tswlv"]
-[ext_resource type="PackedScene" uid="uid://c5ib4aw80nweq" path="res://Scenes/PlayerButton.tscn" id="5_dpf3b"]
-[ext_resource type="PackedScene" uid="uid://c8acdulpe58h0" path="res://Scenes/EnemyButton.tscn" id="7_5si2c"]
-[ext_resource type="Script" path="res://Battle/UI/PlayerInfoButton.cs" id="8_76ur7"]
-[ext_resource type="PackedScene" uid="uid://dp3x3p7v3gne7" path="res://Scenes/PlayerInfoBar.tscn" id="8_b65rj"]
-[ext_resource type="Script" path="res://Battle/ChoicesMenu.cs" id="8_m5lvs"]
-[ext_resource type="Theme" uid="uid://d1581a561nbqt" path="res://Themes/new_theme.tres" id="9_nuj87"]
+[ext_resource type="Script" path="res://Battle/Scripts/Battle.cs" id="1_0e82i"]
+[ext_resource type="PackedScene" uid="uid://d2acwv1frlyu3" path="res://Battle/Scenes/Battle.tscn" id="2_uie26"]
+[ext_resource type="PackedScene" uid="uid://lomjvvxw300d" path="res://Battle/Scenes/Battle Updates.tscn" id="3_4r2ad"]
+[ext_resource type="Script" path="res://Battle/Scripts/Menu.cs" id="4_tswlv"]
+[ext_resource type="PackedScene" uid="uid://c5ib4aw80nweq" path="res://Battle/Scenes/PlayerButton.tscn" id="5_dpf3b"]
+[ext_resource type="PackedScene" uid="uid://c8acdulpe58h0" path="res://Battle/Scenes/EnemyButton.tscn" id="7_5si2c"]
+[ext_resource type="PackedScene" uid="uid://b2x6qs6jme43b" path="res://Battle/Scenes/ActionsBox.tscn" id="7_lo35o"]
+[ext_resource type="PackedScene" uid="uid://bip83ruormwg5" path="res://Battle/Scenes/ChoicesBox.tscn" id="8_a3pth"]
+[ext_resource type="PackedScene" uid="uid://bup5td8a1iv22" path="res://Battle/Scenes/PlayerInfo.tscn" id="9_majji"]
 
-[sub_resource type="Theme" id="Theme_l3jfe"]
-
-[sub_resource type="Theme" id="Theme_16mbi"]
-
-[sub_resource type="Theme" id="Theme_hliyr"]
-
-[node name="Battle" type="Control"]
+[node name="BattleRoot" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,117 +20,66 @@ offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.998291, 1.00118)
+
+[node name="Battle" parent="." instance=ExtResource("2_uie26")]
+layout_mode = 1
 script = ExtResource("1_0e82i")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="Battle"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Top" type="NinePatchRect" parent="MarginContainer/VBoxContainer"]
-texture_filter = 1
-custom_minimum_size = Vector2(540, 48)
-layout_mode = 2
-size_flags_horizontal = 4
-texture = ExtResource("2_oypdw")
-patch_margin_left = 4
-patch_margin_top = 4
-patch_margin_right = 4
-patch_margin_bottom = 4
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Top"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = SubResource("Theme_l3jfe")
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Top/MarginContainer"]
+[node name="Battle Updates" parent="Battle/VBoxContainer" instance=ExtResource("3_4r2ad")]
 layout_mode = 2
 
-[node name="EnemyName" type="Label" parent="MarginContainer/VBoxContainer/Top/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme = SubResource("Theme_16mbi")
-theme_override_fonts/font = ExtResource("3_a886r")
-theme_override_font_sizes/font_size = 24
-text = "Cocky Roach"
-
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Top/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 10
-theme = SubResource("Theme_16mbi")
-theme_override_fonts/font = ExtResource("3_a886r")
-theme_override_font_sizes/font_size = 24
-text = "5"
-
-[node name="MainArea" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="MainArea" type="HBoxContainer" parent="Battle/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PlayerIcons" type="Control" parent="MarginContainer/VBoxContainer/MainArea" node_paths=PackedStringArray("ButtonsContainer")]
+[node name="PlayerIcons" type="Control" parent="Battle/VBoxContainer/MainArea" node_paths=PackedStringArray("ButtonsContainer")]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
 script = ExtResource("4_tswlv")
 ButtonsContainer = NodePath(".")
 
-[node name="PlayerButton" parent="MarginContainer/VBoxContainer/MainArea/PlayerIcons" instance=ExtResource("5_dpf3b")]
+[node name="PlayerButton" parent="Battle/VBoxContainer/MainArea/PlayerIcons" instance=ExtResource("5_dpf3b")]
 layout_mode = 0
 offset_left = 35.0873
 offset_top = -129.105
 offset_right = 143.087
 offset_bottom = -21.1049
 
-[node name="PlayerButton2" parent="MarginContainer/VBoxContainer/MainArea/PlayerIcons" instance=ExtResource("5_dpf3b")]
+[node name="PlayerButton2" parent="Battle/VBoxContainer/MainArea/PlayerIcons" instance=ExtResource("5_dpf3b")]
 layout_mode = 0
 offset_left = 143.272
 offset_top = -129.105
 offset_right = 251.272
 offset_bottom = -21.1049
 
-[node name="PlayerButton3" parent="MarginContainer/VBoxContainer/MainArea/PlayerIcons" instance=ExtResource("5_dpf3b")]
+[node name="PlayerButton3" parent="Battle/VBoxContainer/MainArea/PlayerIcons" instance=ExtResource("5_dpf3b")]
 layout_mode = 0
 offset_left = 35.0873
 offset_top = 9.73126
 offset_right = 143.087
 offset_bottom = 117.731
 
-[node name="PlayerButton4" parent="MarginContainer/VBoxContainer/MainArea/PlayerIcons" instance=ExtResource("5_dpf3b")]
+[node name="PlayerButton4" parent="Battle/VBoxContainer/MainArea/PlayerIcons" instance=ExtResource("5_dpf3b")]
 layout_mode = 0
 offset_left = 163.306
 offset_top = 9.73126
 offset_right = 271.306
 offset_bottom = 117.731
 
-[node name="EnemyIcons" type="Control" parent="MarginContainer/VBoxContainer/MainArea" node_paths=PackedStringArray("ButtonsContainer")]
+[node name="EnemyIcons" type="Control" parent="Battle/VBoxContainer/MainArea" node_paths=PackedStringArray("ButtonsContainer")]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 6
@@ -145,222 +87,36 @@ mouse_filter = 2
 script = ExtResource("4_tswlv")
 ButtonsContainer = NodePath(".")
 
-[node name="EnemyButton" parent="MarginContainer/VBoxContainer/MainArea/EnemyIcons" instance=ExtResource("7_5si2c")]
+[node name="EnemyButton" parent="Battle/VBoxContainer/MainArea/EnemyIcons" instance=ExtResource("7_5si2c")]
 layout_mode = 0
 offset_left = -337.961
 offset_top = -98.1414
 offset_right = -229.961
 offset_bottom = 9.85857
 
-[node name="EnemyButton2" parent="MarginContainer/VBoxContainer/MainArea/EnemyIcons" instance=ExtResource("7_5si2c")]
+[node name="EnemyButton2" parent="Battle/VBoxContainer/MainArea/EnemyIcons" instance=ExtResource("7_5si2c")]
 layout_mode = 0
 offset_left = -200.726
 offset_top = -42.2074
 offset_right = -92.7263
 offset_bottom = 65.7926
 
-[node name="Bottom" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="Bottom" type="HBoxContainer" parent="Battle/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="ActionsBox" type="NinePatchRect" parent="MarginContainer/VBoxContainer/Bottom" node_paths=PackedStringArray("ButtonsContainer")]
-texture_filter = 1
-custom_minimum_size = Vector2(132, 150)
+[node name="ActionsBox" parent="Battle/VBoxContainer/Bottom" instance=ExtResource("7_lo35o")]
+unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-texture = ExtResource("2_oypdw")
-patch_margin_left = 4
-patch_margin_top = 4
-patch_margin_right = 4
-patch_margin_bottom = 4
-script = ExtResource("4_tswlv")
-ButtonsContainer = NodePath("MarginContainer/ActionsScroller/Actions")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Bottom/ActionsBox"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("9_nuj87")
-
-[node name="ActionsScroller" type="ScrollContainer" parent="MarginContainer/VBoxContainer/Bottom/ActionsBox/MarginContainer"]
+[node name="ChoicesBox" parent="Battle/VBoxContainer/Bottom" instance=ExtResource("8_a3pth")]
+unique_name_in_owner = true
 layout_mode = 2
-follow_focus = true
-vertical_scroll_mode = 3
 
-[node name="Actions" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Bottom/ActionsBox/MarginContainer/ActionsScroller"]
+[node name="PlayersBox" parent="Battle/VBoxContainer/Bottom" instance=ExtResource("9_majji")]
+unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 6
-alignment = 1
 
-[node name="Skills" type="Button" parent="MarginContainer/VBoxContainer/Bottom/ActionsBox/MarginContainer/ActionsScroller/Actions"]
-layout_mode = 2
-focus_mode = 0
-mouse_filter = 2
-theme = ExtResource("9_nuj87")
-theme_override_fonts/font = ExtResource("3_a886r")
-theme_override_font_sizes/font_size = 24
-text = "Skills"
-flat = true
-
-[node name="Magic" type="Button" parent="MarginContainer/VBoxContainer/Bottom/ActionsBox/MarginContainer/ActionsScroller/Actions"]
-layout_mode = 2
-size_flags_vertical = 0
-focus_mode = 0
-mouse_filter = 2
-theme = ExtResource("9_nuj87")
-theme_override_fonts/font = ExtResource("3_a886r")
-theme_override_font_sizes/font_size = 24
-text = "Magic"
-flat = true
-
-[node name="Item" type="Button" parent="MarginContainer/VBoxContainer/Bottom/ActionsBox/MarginContainer/ActionsScroller/Actions"]
-layout_mode = 2
-size_flags_vertical = 0
-focus_mode = 0
-mouse_filter = 2
-theme = ExtResource("9_nuj87")
-theme_override_fonts/font = ExtResource("3_a886r")
-theme_override_font_sizes/font_size = 24
-text = "Item"
-flat = true
-
-[node name="Run" type="Button" parent="MarginContainer/VBoxContainer/Bottom/ActionsBox/MarginContainer/ActionsScroller/Actions"]
-layout_mode = 2
-size_flags_vertical = 0
-focus_mode = 0
-mouse_filter = 2
-theme = ExtResource("9_nuj87")
-theme_override_fonts/font = ExtResource("3_a886r")
-theme_override_font_sizes/font_size = 24
-text = "Run"
-flat = true
-
-[node name="ChoicesBox" type="NinePatchRect" parent="MarginContainer/VBoxContainer/Bottom" node_paths=PackedStringArray("ButtonsContainer")]
-texture_filter = 1
-custom_minimum_size = Vector2(240, 150)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-texture = ExtResource("2_oypdw")
-patch_margin_left = 4
-patch_margin_top = 4
-patch_margin_right = 4
-patch_margin_bottom = 4
-script = ExtResource("8_m5lvs")
-ButtonsContainer = NodePath("MarginContainer/ChoicesScroller/Choices")
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Bottom/ChoicesBox"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("9_nuj87")
-
-[node name="ChoicesScroller" type="ScrollContainer" parent="MarginContainer/VBoxContainer/Bottom/ChoicesBox/MarginContainer"]
-layout_mode = 2
-follow_focus = true
-vertical_scroll_mode = 3
-
-[node name="Choices" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Bottom/ChoicesBox/MarginContainer/ChoicesScroller"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 6
-
-[node name="PlayerInfo" type="NinePatchRect" parent="MarginContainer/VBoxContainer/Bottom" node_paths=PackedStringArray("ButtonsContainer")]
-texture_filter = 1
-custom_minimum_size = Vector2(480, 150)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-texture = ExtResource("2_oypdw")
-patch_margin_left = 4
-patch_margin_top = 4
-patch_margin_right = 4
-patch_margin_bottom = 4
-script = ExtResource("4_tswlv")
-ButtonsContainer = NodePath("MarginContainer/Players")
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = SubResource("Theme_hliyr")
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
-
-[node name="Players" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 6
-
-[node name="PlayerInfoButton" type="Button" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players"]
-layout_mode = 2
-size_flags_vertical = 3
-focus_mode = 0
-mouse_filter = 2
-theme = ExtResource("9_nuj87")
-flat = true
-script = ExtResource("8_76ur7")
-
-[node name="PlayerInfoBar" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players/PlayerInfoButton" instance=ExtResource("8_b65rj")]
-layout_mode = 0
-
-[node name="PlayerInfoButton2" type="Button" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players"]
-layout_mode = 2
-size_flags_vertical = 3
-focus_mode = 0
-mouse_filter = 2
-theme = ExtResource("9_nuj87")
-flat = true
-script = ExtResource("8_76ur7")
-
-[node name="PlayerInfoBar" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players/PlayerInfoButton2" instance=ExtResource("8_b65rj")]
-layout_mode = 0
-
-[node name="PlayerInfoButton3" type="Button" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players"]
-layout_mode = 2
-size_flags_vertical = 3
-focus_mode = 0
-mouse_filter = 2
-theme = ExtResource("9_nuj87")
-flat = true
-script = ExtResource("8_76ur7")
-
-[node name="PlayerInfoBar" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players/PlayerInfoButton3" instance=ExtResource("8_b65rj")]
-layout_mode = 0
-
-[node name="PlayerInfoButton4" type="Button" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players"]
-layout_mode = 2
-size_flags_vertical = 3
-focus_mode = 0
-mouse_filter = 2
-theme = ExtResource("9_nuj87")
-flat = true
-script = ExtResource("8_76ur7")
-
-[node name="PlayerInfoBar" parent="MarginContainer/VBoxContainer/Bottom/PlayerInfo/MarginContainer/Players/PlayerInfoButton4" instance=ExtResource("8_b65rj")]
-layout_mode = 0
-
-[connection signal="ActionFocused" from="." to="MarginContainer/VBoxContainer/Bottom/ChoicesBox" method="_on_action_focused"]
-[connection signal="ActionPressed" from="." to="MarginContainer/VBoxContainer/Bottom/ChoicesBox" method="_on_action_pressed"]
-[connection signal="ButtonFocused" from="MarginContainer/VBoxContainer/MainArea/PlayerIcons" to="." method="_on_actions_button_focused"]
-[connection signal="ButtonPressed" from="MarginContainer/VBoxContainer/MainArea/PlayerIcons" to="." method="_on_actions_button_pressed"]
-[connection signal="ButtonPressed" from="MarginContainer/VBoxContainer/MainArea/EnemyIcons" to="." method="_on_enemies_button_pressed"]
-[connection signal="ButtonFocused" from="MarginContainer/VBoxContainer/Bottom/ActionsBox" to="." method="_on_actions_button_focused"]
-[connection signal="ButtonPressed" from="MarginContainer/VBoxContainer/Bottom/ActionsBox" to="." method="_on_actions_button_pressed"]
-[connection signal="ButtonPressed" from="MarginContainer/VBoxContainer/Bottom/ChoicesBox" to="." method="_on_choices_button_pressed"]
-[connection signal="ButtonFocused" from="MarginContainer/VBoxContainer/Bottom/PlayerInfo" to="." method="_on_actions_button_focused"]
-[connection signal="ButtonPressed" from="MarginContainer/VBoxContainer/Bottom/PlayerInfo" to="." method="_on_actions_button_pressed"]
+[connection signal="ButtonFocused" from="Battle/VBoxContainer/MainArea/PlayerIcons" to="." method="_on_actions_button_focused"]
+[connection signal="ButtonPressed" from="Battle/VBoxContainer/MainArea/PlayerIcons" to="." method="_on_actions_button_pressed"]
+[connection signal="ButtonPressed" from="Battle/VBoxContainer/MainArea/EnemyIcons" to="." method="_on_enemies_button_pressed"]

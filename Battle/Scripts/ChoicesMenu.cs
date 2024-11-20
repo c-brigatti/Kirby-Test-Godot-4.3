@@ -42,7 +42,7 @@ public partial class ChoicesMenu : Menu
         if(!actorChoicesDictionary.ContainsKey(activeActor))
         {
             Array<BaseButton> choiceButtons = new Array<BaseButton>();
-            Theme buttonTheme = (Theme)GD.Load("res://new_theme.tres");
+            Theme buttonTheme = (Theme)GD.Load("res://Themes/battle_ui_theme.tres");
     
             switch (actionEnum)
             {

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://c8acdulpe58h0"]
 
-[ext_resource type="Theme" uid="uid://bexo1helknjrj" path="res://Themes/default_theme.tres" id="1_xabol"]
+[ext_resource type="Theme" uid="uid://bexo1helknjrj" path="res://Themes/margincontainer_theme.tres" id="1_xabol"]
 [ext_resource type="Texture2D" uid="uid://dkxrqrvteq351" path="res://Art/Enemies/DQ_Ghost_iOS.png" id="2_jh4w4"]
 [ext_resource type="Texture2D" uid="uid://dhs07r5yq2cle" path="res://Art/Battle/HealthBar.png" id="3_2wa66"]
 [ext_resource type="Script" path="res://Battle/UI/EnemyButton.cs" id="3_hlkhj"]

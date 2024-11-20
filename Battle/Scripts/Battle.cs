@@ -34,7 +34,7 @@ public partial class Battle : Control
 	private Menu _actions;
 	private Menu _choices;
 	private Menu _enemyIcons;
-	private Menu _playerDetails;
+	private Menu _players;
 	private Menu _playerIcons;
 
 	private PlayerInfoBar _playerReference;
@@ -42,7 +42,7 @@ public partial class Battle : Control
 	private Control _actionsContainer;
 	private Control _choicesContainer;
 	private Control _enemyIconsContainer;
-	private Control _playerDetailsContainer;
+	private Control _playersContainer;
 	private Control _playerIconsContainer;
 
 	private Queue<BattleActor> _battleQueue;
@@ -52,16 +52,16 @@ public partial class Battle : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_actions = GetNode<Menu>("MarginContainer/VBoxContainer/Bottom/ActionsBox");
-		_choices = GetNode<Menu>("MarginContainer/VBoxContainer/Bottom/ChoicesBox");
-		_enemyIcons = GetNode<Menu>("MarginContainer/VBoxContainer/MainArea/EnemyIcons");
-		_playerDetails = GetNode<Menu>("MarginContainer/VBoxContainer/Bottom/PlayerInfo");
-		_playerIcons = GetNode<Menu>("MarginContainer/VBoxContainer/MainArea/PlayerIcons");
+		_actions = GetNode<Menu>("%ActionsBox");
+		_choices = GetNode<Menu>("%ChoicesBox");
+		_enemyIcons = GetNode<Menu>("%EnemyIcons");
+		_players = GetNode<Menu>("%PlayersBox");
+		_playerIcons = GetNode<Menu>("%PlayerIcons");
 		
 		_actionsContainer = _actions.ButtonsContainer;
 		_choicesContainer = _choices.ButtonsContainer;
 		_enemyIconsContainer = _enemyIcons.ButtonsContainer;
-		_playerDetailsContainer = _playerDetails.ButtonsContainer;
+		_playersContainer = _players.ButtonsContainer;
 		_playerIconsContainer = _playerIcons.ButtonsContainer;
 		
 		_battleQueue = new Queue<BattleActor>();

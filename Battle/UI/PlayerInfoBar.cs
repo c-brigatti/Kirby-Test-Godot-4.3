@@ -3,7 +3,7 @@ using System;
 
 public partial class PlayerInfoBar : HBoxContainer
 {
-	public readonly PackedScene HIT_TEXT = (PackedScene)ResourceLoader.Load("res://Scenes/HitText.tscn");
+	public readonly PackedScene HIT_TEXT = (PackedScene)ResourceLoader.Load("res://Battle/Scenes/HitText.tscn");
 	
 	public BattleActor PlayerData;
 	private Label _name;

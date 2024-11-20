@@ -9,7 +9,6 @@ using Godot.Collections;
 [GlobalClass] [Tool] public partial class BattleActor : Resource
 {
     [Signal] public delegate void HpChangedEventHandler(int hp, int change);
-    
     [Signal] public delegate void MpChangedEventHandler(int mp, int change);
 
     [Export] public String Name { get; private set; } = "default";
@@ -50,8 +49,8 @@ using Godot.Collections;
     public int EXP { get; private set; }
     public int MON { get; private set; }
     
-    [Export] public Array<Skill> Skills { get; private set; }
-    [Export] public Array<Magic> Magic { get; private set; }
+    [Export] public Array<Skill> Skills { get; private set; } = new Array<Skill>();
+    [Export] public Array<Magic> Magic { get; private set; } = new Array<Magic>();
 
     public BattleActor()
     {
@@ -98,15 +97,17 @@ using Godot.Collections;
         Name = name;
     }
     
+    /* NOTE: === FUNCTIONS FOR EDITOR PREVIEW STATS === */
+    
     // Customize how properties are displayed in the editor
-    public override Godot.Collections.Array<Dictionary> _GetPropertyList()
+    public override Array<Dictionary> _GetPropertyList()
     {
-        var properties = new Godot.Collections.Array<Dictionary>();
+        var properties = new Array<Dictionary>();
 
         // This will show these properties as read-only in the editor
         void AddReadOnlyProperty(string name, Variant.Type type)
         {
-            var property = new Godot.Collections.Dictionary
+            var property = new Dictionary
             {
                 { "name", name },
                 { "type", (int)type },

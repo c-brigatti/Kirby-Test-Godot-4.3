@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://bip83ruormwg5"]
+
+[ext_resource type="Texture2D" uid="uid://dcsmyeof32dvt" path="res://Art/GUI/pixil-frame-0(1).png" id="1_dah7r"]
+[ext_resource type="Script" path="res://Battle/Scripts/ChoicesMenu.cs" id="2_kagfw"]
+[ext_resource type="Theme" uid="uid://bexo1helknjrj" path="res://Themes/margincontainer_theme.tres" id="3_uw0fu"]
+
+[node name="ChoicesBox" type="NinePatchRect" node_paths=PackedStringArray("ButtonsContainer")]
+texture_filter = 1
+custom_minimum_size = Vector2(240, 150)
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("1_dah7r")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+script = ExtResource("2_kagfw")
+ButtonsContainer = NodePath("MarginContainer/ChoicesScroller/Choices")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_uw0fu")
+
+[node name="ChoicesScroller" type="ScrollContainer" parent="MarginContainer"]
+layout_mode = 2
+follow_focus = true
+vertical_scroll_mode = 3
+
+[node name="Choices" type="VBoxContainer" parent="MarginContainer/ChoicesScroller"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 6

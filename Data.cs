@@ -25,7 +25,7 @@ public partial class Data : Node
 		DirAccess directory;
 		
 		Skills = new Godot.Collections.Dictionary<string, Skill>();
-		filePath = "res://Skills/";
+		filePath = "res://Data/Skills/";
 		directory = DirAccess.Open(filePath);
 		foreach (var file in directory.GetFiles())
 		{
@@ -34,7 +34,7 @@ public partial class Data : Node
 		}
 		
 		Magic = new Godot.Collections.Dictionary<string, Magic>();
-		filePath = "res://Magic/";
+		filePath = "res://Data/Magic/";
 		directory = DirAccess.Open(filePath);
 		foreach (var file in directory.GetFiles())
 		{

@@ -1,6 +1,6 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://d1581a561nbqt"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://d1581a561nbqt"]
 
-[ext_resource type="FontFile" uid="uid://bm40ypfgo7eoy" path="res://Art/Fonts/pixelmix.ttf" id="1_0iqwj"]
+[ext_resource type="FontFile" uid="uid://bm40ypfgo7eoy" path="res://Art/Fonts/pixelmix.ttf" id="1_tva7m"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wofhx"]
 content_margin_left = 4.0
@@ -48,6 +48,10 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
+[sub_resource type="FontVariation" id="FontVariation_vok4q"]
+base_font = ExtResource("1_tva7m")
+spacing_top = -3
+
 [resource]
 Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
 Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
@@ -67,12 +71,14 @@ Button/constants/h_separation = 4
 Button/constants/icon_max_width = 0
 Button/constants/outline_size = 0
 Button/font_sizes/font_size = 24
-Button/fonts/font = ExtResource("1_0iqwj")
+Button/fonts/font = ExtResource("1_tva7m")
 Button/styles/disabled = SubResource("StyleBoxFlat_wofhx")
 Button/styles/focus = SubResource("StyleBoxFlat_cm6na")
 Button/styles/hover = SubResource("StyleBoxEmpty_7nb5h")
 Button/styles/normal = SubResource("StyleBoxFlat_wadbx")
 Button/styles/pressed = SubResource("StyleBoxFlat_cfxv2")
+Label/font_sizes/font_size = 24
+Label/fonts/font = SubResource("FontVariation_vok4q")
 MarginContainer/constants/margin_bottom = 12
 MarginContainer/constants/margin_left = 12
 MarginContainer/constants/margin_right = 12

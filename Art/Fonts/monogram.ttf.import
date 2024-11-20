@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://cj2fqxv1leqyt"
-path="res://.godot/imported/PixgamerRegular-OVD6A.ttf-f984763c9aa3ab4ba79bc72daedddf5e.fontdata"
+uid="uid://wm6alwq5g3r2"
+path="res://.godot/imported/monogram.ttf-86f349db97fa7a974abc7931365358a5.fontdata"
 
 [deps]
 
-source_file="res://Art/Fonts/PixgamerRegular-OVD6A.ttf"
-dest_files=["res://.godot/imported/PixgamerRegular-OVD6A.ttf-f984763c9aa3ab4ba79bc72daedddf5e.fontdata"]
+source_file="res://Art/Fonts/monogram.ttf"
+dest_files=["res://.godot/imported/monogram.ttf-86f349db97fa7a974abc7931365358a5.fontdata"]
 
 [params]
 

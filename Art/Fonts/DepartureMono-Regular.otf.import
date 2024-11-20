@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://w3w0ntoyg5q2"
-path="res://.godot/imported/MinecraftRegular-Bmg3.otf-8c28b38c5dd9890ac7960814e1b182f9.fontdata"
+uid="uid://gtdj7syv550"
+path="res://.godot/imported/DepartureMono-Regular.otf-58f1a95fc55218fb93a6c7eb6992adad.fontdata"
 
 [deps]
 
-source_file="res://Art/Fonts/MinecraftRegular-Bmg3.otf"
-dest_files=["res://.godot/imported/MinecraftRegular-Bmg3.otf-8c28b38c5dd9890ac7960814e1b182f9.fontdata"]
+source_file="res://Art/Fonts/DepartureMono-Regular.otf"
+dest_files=["res://.godot/imported/DepartureMono-Regular.otf-58f1a95fc55218fb93a6c7eb6992adad.fontdata"]
 
 [params]
 

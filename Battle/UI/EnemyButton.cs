@@ -2,7 +2,7 @@
 
 public partial class EnemyButton : Button
 {
-    public readonly PackedScene HIT_TEXT = (PackedScene)ResourceLoader.Load("res://Scenes/HitText.tscn");
+    public readonly PackedScene HIT_TEXT = (PackedScene)ResourceLoader.Load("res://Battle/Scenes/HitText.tscn");
     
     public TextureProgressBar HpBar;
     public BattleActor EnemyData; 
