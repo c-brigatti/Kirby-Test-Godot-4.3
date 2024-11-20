@@ -6,10 +6,10 @@
 [ext_resource type="Script" path="res://Battle/Menu.cs" id="4_tswlv"]
 [ext_resource type="PackedScene" uid="uid://c5ib4aw80nweq" path="res://Scenes/PlayerButton.tscn" id="5_dpf3b"]
 [ext_resource type="PackedScene" uid="uid://c8acdulpe58h0" path="res://Scenes/EnemyButton.tscn" id="7_5si2c"]
-[ext_resource type="Script" path="res://Battle/PlayerInfoButton.cs" id="8_76ur7"]
+[ext_resource type="Script" path="res://Battle/UI/PlayerInfoButton.cs" id="8_76ur7"]
 [ext_resource type="PackedScene" uid="uid://dp3x3p7v3gne7" path="res://Scenes/PlayerInfoBar.tscn" id="8_b65rj"]
 [ext_resource type="Script" path="res://Battle/ChoicesMenu.cs" id="8_m5lvs"]
-[ext_resource type="Theme" uid="uid://d1581a561nbqt" path="res://new_theme.tres" id="9_nuj87"]
+[ext_resource type="Theme" uid="uid://d1581a561nbqt" path="res://Themes/new_theme.tres" id="9_nuj87"]
 
 [sub_resource type="Theme" id="Theme_l3jfe"]
 

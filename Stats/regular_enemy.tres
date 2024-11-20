@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="BaseStats" load_steps=2 format=3 uid="uid://p446mohfpwpl"]
+
+[ext_resource type="Script" path="res://BaseStats.cs" id="1_a4jkp"]
+
+[resource]
+script = ExtResource("1_a4jkp")
+BaseHP = 100
+BaseMP = 30
+BaseSTR = 10
+BaseMAG = 10
+BaseVIT = 10
+BaseAGI = 10
+BaseLUK = 10
+BaseEXP = 20
+BaseMON = 50
+RateHP = 0.15
+FlatHP = 50.0
+RateMP = 0.1
+FlatMP = 10.0
+RateSTR = 0.05
+FlatSTR = 2.5
+RateMAG = 0.05
+FlatMAG = 2.5
+RateVIT = 0.05
+FlatVIT = 2.5
+RateAGI = 0.05
+FlatAGI = 2.5
+RateLUK = 0.05
+FlatLUK = 2.5
+RateEXP = 0.15
+FlatEXP = 50.0
+RateMON = 0.15
+FlatMON = 50.0
