@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="EnemyActor" load_steps=4 format=3 uid="uid://cf40wl35cyrgs"]
+
+[ext_resource type="Script" path="res://Scripts/Data/Stats/BaseStats.cs" id="1_8fdjc"]
+[ext_resource type="Script" path="res://Scripts/Data/Actors/EnemyActor.cs" id="2_73rlt"]
+
+[sub_resource type="Resource" id="Resource_uc7ma"]
+script = ExtResource("1_8fdjc")
+BaseHP = 100
+RateHP = 0.15
+FlatHP = 50.0
+BaseMP = 30
+RateMP = 0.1
+FlatMP = 10.0
+BaseSTR = 10
+RateSTR = 0.05
+FlatSTR = 2.5
+BaseMAG = 10
+RateMAG = 0.05
+FlatMAG = 2.5
+BaseVIT = 10
+RateVIT = 0.05
+FlatVIT = 2.5
+BaseAGI = 10
+RateAGI = 0.05
+FlatAGI = 2.5
+BaseLUK = 10
+RateLUK = 0.05
+FlatLUK = 2.5
+BaseEXP = 20
+RateEXP = 0.15
+FlatEXP = 50.0
+BaseMON = 50
+RateMON = 0.15
+FlatMON = 50.0
+
+[resource]
+script = ExtResource("2_73rlt")
+Name = "Goofball"
+BaseStats = SubResource("Resource_uc7ma")
+Level = 1
+Skills = []
+Magic = []

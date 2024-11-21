@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="Skill" load_steps=2 format=3 uid="uid://bhcsxnpafqbun"]
-
-[ext_resource type="Script" path="res://Skill.cs" id="1_hdrk5"]
-
-[resource]
-script = ExtResource("1_hdrk5")
-Name = "Tackle"
-Damage = 40
-MpCost = 0

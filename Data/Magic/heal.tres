@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="Magic" load_steps=2 format=3 uid="uid://bim3u4ptmh02y"]
-
-[ext_resource type="Script" path="res://Magic.cs" id="1_wy051"]
-
-[resource]
-script = ExtResource("1_wy051")
-Name = "Heal"
-Damage = -30
-MpCost = 12

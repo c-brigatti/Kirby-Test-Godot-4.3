@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Magic" load_steps=2 format=3 uid="uid://ckgirvgi37fl"]
+
+[ext_resource type="Script" path="res://Scripts/Data/Abilities/Magic.cs" id="1_rfhxq"]
+
+[resource]
+script = ExtResource("1_rfhxq")
+Name = "Fireball"
+Damage = 25
+MpCost = 10

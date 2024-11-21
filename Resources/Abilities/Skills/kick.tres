@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=2 format=3 uid="uid://uv0csyyl73vw"]
+
+[ext_resource type="Script" path="res://Scripts/Data/Abilities/Skill.cs" id="1_62cdr"]
+
+[resource]
+script = ExtResource("1_62cdr")
+Name = "Kick"
+Damage = 15
+MpCost = 0

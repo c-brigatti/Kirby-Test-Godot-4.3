@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://bup5td8a1iv22"]
+
+[ext_resource type="Texture2D" uid="uid://dcsmyeof32dvt" path="res://Art/GUI/pixil-frame-0(1).png" id="1_my5rh"]
+[ext_resource type="Script" path="res://Scripts/Battle/UI/Menu.cs" id="2_ofk7a"]
+[ext_resource type="Theme" uid="uid://bexo1helknjrj" path="res://Themes/margincontainer_theme.tres" id="3_qo87c"]
+[ext_resource type="PackedScene" uid="uid://cxxmiexe8pklu" path="res://Scenes/Battle/UI/PlayerInfoButton.tscn" id="4_vfftl"]
+
+[node name="PlayerInfo" type="NinePatchRect" node_paths=PackedStringArray("ButtonsContainer")]
+texture_filter = 1
+custom_minimum_size = Vector2(536, 150)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("1_my5rh")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+script = ExtResource("2_ofk7a")
+ButtonsContainer = NodePath("MarginContainer/Players")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_qo87c")
+
+[node name="Players" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="PlayerInfoButton" parent="MarginContainer/Players" instance=ExtResource("4_vfftl")]
+layout_mode = 2
+
+[node name="PlayerInfoButton2" parent="MarginContainer/Players" instance=ExtResource("4_vfftl")]
+layout_mode = 2
+
+[node name="PlayerInfoButton3" parent="MarginContainer/Players" instance=ExtResource("4_vfftl")]
+layout_mode = 2
+
+[node name="PlayerInfoButton4" parent="MarginContainer/Players" instance=ExtResource("4_vfftl")]
+layout_mode = 2

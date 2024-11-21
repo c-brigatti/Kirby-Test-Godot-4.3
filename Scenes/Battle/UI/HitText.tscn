@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://oqgvwxe2j7ee"]
+
+[ext_resource type="Script" path="res://Scripts/Battle/UI/HitText.cs" id="1_wb6fw"]
+
+[node name="HitText" type="Label"]
+offset_right = 36.0
+offset_bottom = 16.0
+size_flags_horizontal = 0
+text = "000"
+script = ExtResource("1_wb6fw")
+
+[node name="Free" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Free" to="." method="_on_free_timeout"]

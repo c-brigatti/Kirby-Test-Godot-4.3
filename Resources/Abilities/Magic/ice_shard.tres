@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Magic" load_steps=2 format=3 uid="uid://c4io1a3j6ni5"]
+
+[ext_resource type="Script" path="res://Scripts/Data/Abilities/Magic.cs" id="1_ikucj"]
+
+[resource]
+script = ExtResource("1_ikucj")
+Name = "Ice Shard"
+Damage = 20
+MpCost = 8

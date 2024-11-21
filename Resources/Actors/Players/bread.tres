@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="PlayerActor" load_steps=4 format=3 uid="uid://bhdu2tijgbjkl"]
+
+[ext_resource type="Script" path="res://Scripts/Data/Stats/BaseStats.cs" id="1_ikhvw"]
+[ext_resource type="Script" path="res://Scripts/Data/Actors/PlayerActor.cs" id="2_cy47f"]
+
+[sub_resource type="Resource" id="Resource_pqg6q"]
+script = ExtResource("1_ikhvw")
+BaseHP = 100
+RateHP = 0.15
+FlatHP = 50.0
+BaseMP = 30
+RateMP = 0.1
+FlatMP = 10.0
+BaseSTR = 10
+RateSTR = 0.05
+FlatSTR = 2.5
+BaseMAG = 10
+RateMAG = 0.05
+FlatMAG = 2.5
+BaseVIT = 10
+RateVIT = 0.05
+FlatVIT = 2.5
+BaseAGI = 10
+RateAGI = 0.05
+FlatAGI = 2.5
+BaseLUK = 10
+RateLUK = 0.05
+FlatLUK = 2.5
+BaseEXP = 20
+RateEXP = 0.15
+FlatEXP = 50.0
+BaseMON = 50
+RateMON = 0.15
+FlatMON = 50.0
+
+[resource]
+script = ExtResource("2_cy47f")
+Name = "Bread"
+BaseStats = SubResource("Resource_pqg6q")
+Level = 1
+Skills = []
+Magic = []
