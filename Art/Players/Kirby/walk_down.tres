@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cvhkcynpsqcsa"]
+
+[ext_resource type="Texture2D" uid="uid://t8oclxjio8mf" path="res://Art/Players/Kirby/32130(1).png" id="1_u4sqh"]
+
+[resource]
+atlas = ExtResource("1_u4sqh")
+region = Rect2(379, 394, 71, 19)

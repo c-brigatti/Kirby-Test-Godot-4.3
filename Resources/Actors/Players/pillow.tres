@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Data/Stats/BaseStats.cs" id="1_oak56"]
 [ext_resource type="Script" path="res://Scripts/Data/Actors/PlayerActor.cs" id="2_oaads"]
 
-[sub_resource type="Resource" id="Resource_uc7ma"]
+[sub_resource type="Resource" id="Resource_26typ"]
 script = ExtResource("1_oak56")
 BaseHP = 100
 RateHP = 0.15
@@ -36,7 +36,7 @@ FlatMON = 50.0
 [resource]
 script = ExtResource("2_oaads")
 Name = "Pillow"
-BaseStats = SubResource("Resource_uc7ma")
+BaseStats = SubResource("Resource_26typ")
 Level = 3
 Skills = []
 Magic = []

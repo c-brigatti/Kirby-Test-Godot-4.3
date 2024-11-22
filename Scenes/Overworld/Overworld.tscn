@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://yty5fc0ds5gs"]
+
+[ext_resource type="TileSet" uid="uid://cgqgt6beklky5" path="res://Scenes/Overworld/Tilesets/Overworld.tres" id="1_il2uh"]
+[ext_resource type="PackedScene" uid="uid://chmebsnbh4yyh" path="res://Scenes/Overworld/Entities/Player.tscn" id="2_3hq3r"]
+
+[node name="Overworld" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = ExtResource("1_il2uh")
+
+[node name="Player" parent="." instance=ExtResource("2_3hq3r")]
