@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpkl2da1k4lft"
-path="res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
+uid="uid://vga3avpb4gyh"
+path="res://.godot/imported/toggle_sidebar.svg-99e4fe22fa516ab6214c0533adb07ec0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icon.svg"
-dest_files=["res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"]
+source_file="res://addons/godot_state_charts/toggle_sidebar.svg"
+dest_files=["res://.godot/imported/toggle_sidebar.svg-99e4fe22fa516ab6214c0533adb07ec0.ctex"]
 
 [params]
 

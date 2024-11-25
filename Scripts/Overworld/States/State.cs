@@ -5,6 +5,10 @@ using System.Diagnostics;
 public partial class State : Node
 {
     [Signal] public delegate void TransitionedEventHandler(State state, string newStateName);
+
+    protected CharacterBody2D Entity;
+    protected AnimatedSprite2D Animation;
+    //protected 
     
     public void Enter()
     {
@@ -24,5 +28,11 @@ public partial class State : Node
     public void PhysicsUpdate(double delta)
     {
         
+    }
+
+    public void SetEntity(CharacterBody2D entity, AnimatedSprite2D animation)
+    {
+        Entity = entity;
+        Animation = animation;
     }
 }

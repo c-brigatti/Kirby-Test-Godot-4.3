@@ -6,6 +6,8 @@ using Godot.Collections;
 public partial class StateMachine : Node
 {
 	[Export] public State InitialState { get; set; }
+	[Export] public CharacterBody2D Entity { get; set; }
+	[Export] public AnimatedSprite2D Animation { get; set; }
 	
 	private State _currentState;
 	private Dictionary<string, State> _states = new ();
@@ -18,21 +20,21 @@ public partial class StateMachine : Node
 			if (child is State childState)
 			{
 				_states.Add(child.Name, childState);
+				childState.SetEntity(Entity, Animation);
 				childState.Transitioned += _on_child_transition; // State calls Transitioned when transitioning
 			}
 		}
 
-		InitialState?.Enter();
 		_currentState = InitialState;
+		InitialState?.Enter();
 	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	
+	public void Process(double delta)
 	{
 		_currentState?.Update(delta);
 	}
 
-	public override void _PhysicsProcess(double delta)
+	public void PhysicsProcess(double delta)
 	{
 		_currentState?.PhysicsUpdate(delta);
 	}

@@ -1,0 +1,24 @@
+[gd_resource type="AnimationNodeBlendSpace2D" load_steps=5 format=3 uid="uid://uu3shogj6wbn"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8na06"]
+animation = &"walk_down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3gqsi"]
+animation = &"walk_up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8052i"]
+animation = &"walk_horizontal"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dh5ky"]
+animation = &"walk_horizontal"
+
+[resource]
+blend_point_0/node = SubResource("AnimationNodeAnimation_8na06")
+blend_point_0/pos = Vector2(0, 1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_3gqsi")
+blend_point_1/pos = Vector2(0, -1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_8052i")
+blend_point_2/pos = Vector2(-1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_dh5ky")
+blend_point_3/pos = Vector2(1, 0)
+blend_mode = 1
